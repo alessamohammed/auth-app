@@ -11,15 +11,18 @@ export default function Home() {
         navigate('/login')
     }
 
-    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [verified, setVerified] = useState('');
     const [loggedIn, setLoggedIn] = useState(false);
-
+    
     let navigate = useNavigate();
     useEffect(() => {
         let authToken = sessionStorage.getItem('Auth Token')
 
         if (authToken) {
             setLoggedIn(true);
+            setEmail(sessionStorage.getItem('Email') as string)
+            setVerified(sessionStorage.getItem("Verified") as string)
         }
 
         if (!authToken) {
@@ -31,8 +34,9 @@ export default function Home() {
             {loggedIn ? (<NavBar name={"Logout"} action={handleLogout}/>)
         :<NavBar name={"Login"} action={handleLogin}/>    
         }
+            Welcome {email}
             
-        
+        <p>{verified}</p>
         </div>
     )
 }

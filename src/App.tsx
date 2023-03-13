@@ -21,7 +21,7 @@ function App() {
 useEffect(() => {
   let authToken = sessionStorage.getItem('Auth Token')
   if (authToken) {
-    navigate('/home')
+    navigate('/')
   }
 }, [])
 const navigate = useNavigate();
@@ -29,8 +29,15 @@ const handleAction = (id:number, email:string, password:string) => {
     if (id === 2)
     createUserWithEmailAndPassword(auth, email, password)
     .then((response) => {
+      if (response.user.emailVerified)
+      sessionStorage.setItem('Verified', 'Verified')
+      else
+      sessionStorage.setItem('Verified', 'Not Verified')
+
       sessionStorage.setItem('Auth Token', response.user.refreshToken)
-      navigate('/home')
+      sessionStorage.setItem('Email',  response.user.email as string)
+
+      navigate('/')
     })
     .catch((error) => {
       console.log(error);
@@ -50,8 +57,16 @@ const handleAction = (id:number, email:string, password:string) => {
     else if ( id === 1)
     signInWithEmailAndPassword(auth, email, password)
     .then((response) => {
-      sessionStorage.setItem('Auth Token', response.user.refreshToken)
-      navigate('/home')
+      if (response.user.emailVerified)
+      sessionStorage.setItem('Verified', 'Verified')
+      else
+      sessionStorage.setItem('Verified', 'Not Verified')
+
+
+      sessionStorage.setItem('Auth Token', response.user.refreshToken);
+      sessionStorage.setItem('Email',  response.user.email as string)
+
+      navigate('/')
     })
     .catch((error) => {
       if(error.code === 'auth/wrong-password'){
@@ -77,7 +92,7 @@ const handleAction = (id:number, email:string, password:string) => {
                   />} 
             />
             <Route
-            path='/home'
+            path='/'
             element={
               <Home />}
           />
