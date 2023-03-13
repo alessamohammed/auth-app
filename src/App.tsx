@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
 import LoginPage from './login';
 import React from 'react';
+import SignupPage from './Signup';
 
 
 function App() {
@@ -71,16 +72,10 @@ const handleAction = (id:number, email:string, password:string) => {
                   handleAction={(email:string,password:string) => handleAction(1,email,password)}
                   />} 
             />
-            {/* <Route
-              path='/register'
-              element={
-                <Form
-                  title="Register"
-                  setEmail={setEmail}
-                  setPassword={setPassword}
-                  handleAction={() => handleAction(2)}
-                  />}
-            /> */}
+            <Route path='/signup' element={<SignupPage 
+                  handleAction={(email:string,password:string) => handleAction(2,email,password)}
+                  />} 
+            />
             <Route
             path='/home'
             element={
