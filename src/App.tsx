@@ -1,6 +1,5 @@
 import './App.css';
 import { useEffect } from 'react';
-import Form from './Components/Common/Form'
 import Home from './Components/Home';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
