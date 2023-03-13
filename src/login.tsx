@@ -12,7 +12,7 @@ import {
   import { FC } from 'react';
   import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
   import { Link } from 'react-router-dom';
-  import { literal, object, string, TypeOf } from 'zod';
+  import { boolean, literal, object, string, TypeOf } from 'zod';
   import { zodResolver } from '@hookform/resolvers/zod';
   import { ReactComponent as GoogleLogo } from './assets/google.svg';
   import { ReactComponent as GitHubLogo } from './assets/github.svg';
@@ -57,7 +57,7 @@ import {
       .min(1,'Password is required')
       .min(8, 'Password must be more than 8 characters')
       .max(32, 'Password must be less than 32 characters'),
-    persistUser: literal(true).optional(),
+    persistUser: boolean().optional(),
   });
   
   // ? Infer the Schema to get the TS Type
@@ -68,6 +68,7 @@ import {
     const defaultValues: ILogin = {
       email: '',
       password: '',
+      persistUser: false
     };
   
     // ? The object returned from useForm Hook
@@ -155,8 +156,7 @@ import {
                         control={
                           <Checkbox
                             size='small'
-                            aria-label='trust this device checkbox'
-                            required
+                            aria-label='Remember me checkbox'
                             {...methods.register('persistUser')}
                           />
                         }
@@ -169,7 +169,7 @@ import {
                               color: '#5e5b5d',
                             }}
                           >
-                            Trust this device
+                            Remember me?
                           </Typography>
                         }
                       />
